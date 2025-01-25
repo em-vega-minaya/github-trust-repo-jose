@@ -40,23 +40,30 @@ Resources:
       AccessControl: Private
   
   S3BucketPolicy:
-    Type: AWS::S3::BucketPolicy
+    Type: "AWS::S3::BucketPolicy"
     Properties:
-      Bucket: !Sub "stage-${pTeamName}-${pAWSAccountId}-${pAccountName}"
+      Bucket: !Ref S3Bucket
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
-          - Sid: "AllowDataSyncAccess"
+          - Sid: "AccessAccountDatalakeObjectDataSyncs"
             Effect: "Allow"
             Principal:
-              AWS:
+              AWS: 
                 - "arn:aws:iam::{pAWSAccountId}:root"
                 - !Sub "arn:aws:iam::{pAWSAccountId}:role/role-datasync-${pTeamName}-${pAccountName}-${Stage}"
             Action:
               - "s3:GetBucketLocation"
               - "s3:ListBucket"
+              - "s3:ListBucketMultipartUploads"
+              - "s3:AbortMultipartUpload"
+              - "s3:DeleteObject"
               - "s3:GetObject"
+              - "s3:ListMultipartUploadParts"
+              - "s3:PutObjectTagging"
+              - "s3:GetObjectTagging"
               - "s3:PutObject"
             Resource:
               - !Sub "arn:aws:s3:::${S3Bucket}"
               - !Sub "arn:aws:s3:::${S3Bucket}/*"
+
