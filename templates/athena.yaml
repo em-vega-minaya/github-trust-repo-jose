@@ -32,61 +32,31 @@ Parameters:
     Type: String
 
 Resources:
-  DataSyncRole:
-    Type: AWS::IAM::Role
-    Properties:
-      RoleName: !Sub "role-datasync-${pTeamName}-${pAccountName}-${Stage}"
-      AssumeRolePolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: "Allow"
-            Principal:
-              Service: "datasync.amazonaws.com"
-            Action: "sts:AssumeRole"
-      ManagedPolicyArns:
-        - "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
-        - "arn:aws:iam::aws:policy/AmazonSNSFullAccess"
-      MaxSessionDuration: 3600
-      Path: "/"
-      Policies:
-        - PolicyName: !Sub "access-to-s3-policy-${pTeamName}-${pAWSAccountId}-prueba"
-          PolicyDocument:
-            Version: "2012-10-17"
-            Statement:
-              - Sid: AccessToS3Bucket
-                Effect: "Allow"
-                Action:
-                  - "s3:GetBucketLocation"
-                  - "s3:ListBucket"
-                Resource: !Sub "arn:aws:s3:::stage-${pTeamName}-${pAWSAccountId}-${pAccountName}"
-              - Sid: AccessToS3Objects
-                Effect: "Allow"
-                Action:
-                  - "s3:GetObject"
-                  - "s3:PutObject"
-                Resource: !Sub "arn:aws:s3:::stage-${pTeamName}-${pAWSAccountId}-${pAccountName}/*"
-
   S3Bucket:
     Type: "AWS::S3::Bucket"
+    DeletionPolicy: Delete
     Properties:
       BucketName: !Join ['-', ["stage", !Ref pTeamName, !Ref pAWSAccountId, !Ref pAWSAccountId]] # Cambia el nombre si es necesario
+      AccessControl: Private
   
   S3BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Sub S3Bucket
+      Bucket: !Sub "stage-${pTeamName}-${pAWSAccountId}-${pAccountName}"
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
           - Sid: "AllowDataSyncAccess"
             Effect: "Allow"
             Principal:
-              AWS: !GetAtt DataSyncRole.Arn
+              AWS:
+                - "arn:aws:iam::{pAWSAccountId}:root"
+                - !Sub "arn:aws:iam::{pAWSAccountId}:role/role-datasync-${pTeamName}-${pAccountName}-${Stage}"
             Action:
               - "s3:GetBucketLocation"
               - "s3:ListBucket"
               - "s3:GetObject"
               - "s3:PutObject"
             Resource:
-              - !Sub "arn:aws:s3:::stage-${pTeamName}-${pAWSAccountId}-${pAccountName}"
-              - !Sub "arn:aws:s3:::stage-${pTeamName}-${pAWSAccountId}-${pAccountName}/*"
+              - !Sub "arn:aws:s3:::${S3Bucket}"
+              - !Sub "arn:aws:s3:::${S3Bucket}/*"
