@@ -66,10 +66,15 @@ Resources:
                   - "s3:PutObject"
                 Resource: !Sub "arn:aws:s3:::stage-${pTeamName}-${pAWSAccountId}-${pAccountName}/*"
 
+  S3Bucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Join ['-', ["stage", !Ref pTeamName, !Ref pAWSAccountId, !Ref pAWSAccountId]] # Cambia el nombre si es necesario
+  
   S3BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Sub "stage-${pTeamName}-${pAWSAccountId}-${pAccountName}"
+      Bucket: !Sub S3Bucket
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
