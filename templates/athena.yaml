@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: template para crear roles y políticas IAM
+
+Parameters:
+  Stage:
+    Type: String
+    Description: Environment name (dev/qa/prod)
+    Default: dev
+  pBranchName:
+    Description: "Branch Name(all lowercase, no symbols or spaces)"
+    Type: String
+  pArtifactsBucket:
+    Description: "Artifact Bucket (all lowercase, no symbols or spaces)"
+    Type: String
+  pAWSRegion:
+    Description: "Aws region (all lowercase, no symbols or spaces)"
+    Type: String
+  pAWSAccountId:
+    Description: "Aws account (all lowercase, no symbols or spaces)"
+    Type: String
+  pAWSAccountOptId:
+    Description: "Aws account optimizador Id(all lowercase, no symbols or spaces)"
+    Type: String
+  pAccountName:
+    Description: "Aws account (all lowercase, no symbols or spaces)"
+    Type: String
+  pTeamName:
+    Description: "Aws account (all lowercase, no symbols or spaces)"
+    Type: String
+  pdeploymentDate:
+    Description: "Aws account (all lowercase, no symbols or spaces)"
+    Type: String
+
+Resources:
+  DataSyncRole:
+  Type: AWS::IAM::Role
+  Properties:
+    RoleName: !Sub "role-datasync-${pTeamName}-${pAccountName}-${Stage}"
+    AssumeRolePolicyDocument:
+      Version: "2012-10-17"
+      Statement:
+        - Effect: "Allow"
+          Principal:
+            Service: "datasync.amazonaws.com"
+          Action: "sts:AssumeRole"
+    ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+      - "arn:aws:iam::aws:policy/AmazonSNSFullAccess"
+    MaxSessionDuration: 3600  # Reduce a 1 hora si es posible
+    Path: "/"
+    Policies:
+      - PolicyName: !Sub "access-to-s3-policy-${pTeamName}-${pAWSAccountId}-prueba"
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Sid: AccessToS3Bucket
+              Effect: "Allow"
+              Action:
+                - "s3:GetBucketLocation"
+                - "s3:ListBucket"
+              Resource: "arn:aws:s3:::stage-{pTeamName}-{pAWSAccountId}-{pAccountName}"
+            - Sid: AccessToS3Objects
+              Effect: "Allow"
+              Action:
+                - "s3:GetObject"
+                - "s3:PutObject"
+              Resource: "arn:aws:s3:::stage-{pTeamName}-{pAWSAccountId}-{pAccountName}/*"
+
+S3BucketPolicy:
+  Type: "AWS::S3::BucketPolicy"
+  Properties:
+    Bucket: !Sub "stage-{pTeamName}-{pAWSAccountId}-{pAccountName}"
+    PolicyDocument:
+      Version: "2012-10-17"
+      Statement:
+        - Sid: "AllowDataSyncAccess"
+          Effect: "Allow"
+          Principal:
+            AWS: !GetAtt DataSyncRole.Arn
+          Action:
+            - "s3:GetBucketLocation"
+            - "s3:ListBucket"
+            - "s3:GetObject"
+            - "s3:PutObject"
+          Resource:
+            - !Sub "arn:aws:s3:::stage-{pTeamName}-{pAWSAccountId}-{pAccountName}"
+            - !Sub "arn:aws:s3:::stage-{pTeamName}-{pAWSAccountId}-{pAccountName}/*"
