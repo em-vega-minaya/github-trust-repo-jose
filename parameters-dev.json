@@ -15,15 +15,15 @@
       "ARTIFACTORY_BUCKET":"test-artifacts-dev-josemaria"
   },
   {
-      "AWS_ACCOUNT_ID":"039612881651"
+      "AWS_ACCOUNT_ID":"160885287080"
   },
   {
-      "AWS_ACCOUNT_ID_CASA":"160885287080"
+      "AWS_ACCOUNT_ID_CASA":"039612881651"
   },
   {
       "DB_STAGE":"db_analitycs_prueba"
   },
   {
-      "AWS_ACCOUNT":"ecodistribucion"
+      "AWS_ACCOUNT":"optimizador"
   }
 ]
