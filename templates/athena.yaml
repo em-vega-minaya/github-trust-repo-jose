@@ -50,8 +50,8 @@ Resources:
             Effect: "Allow"
             Principal:
               AWS: 
-                - !Sub "arn:aws:iam::{pAWSAccountId}:root"
-                - !Sub "arn:aws:iam::{pAWSAccountId}:role/role-datasync-${pTeamName}-${pAccountName}-${Stage}"
+                - !Sub "arn:aws:iam::${pAWSAccountId}:root"
+                - !Sub "arn:aws:iam::${pAWSAccountId}:role/role-datasync-${pTeamName}-${pAccountName}-${Stage}"
             Action:
               - "s3:GetBucketLocation"
               - "s3:ListBucket"
@@ -66,4 +66,5 @@ Resources:
             Resource:
               - !Sub "arn:aws:s3:::${S3Bucket}"
               - !Sub "arn:aws:s3:::${S3Bucket}/*"
+
 
