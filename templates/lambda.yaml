@@ -53,6 +53,8 @@ Resources:
         Variables:
           ENVIRONMENT: !Ref Stage
           REGION: !Ref pAWSRegion
+          ACCOUNT_ID: !Ref pAWSAccountId
+          BRANCH_NAME: !Ref pBranchName
       Layers:
         - !Ref dataWranglerLayer
         - !Ref requestLayer
@@ -79,6 +81,8 @@ Resources:
         Variables:
           ENVIRONMENT: !Ref Stage
           REGION: !Ref pAWSRegion
+          ACCOUNT_ID: !Ref pAWSAccountId
+          BRANCH_NAME: !Ref pBranchName
       Layers:
         - !Ref dataWranglerLayer
         - !Ref requestLayer
@@ -99,6 +103,7 @@ Resources:
     Type: AWS::Lambda::LayerVersion
     Properties:
       CompatibleRuntimes:
+        - python3.9
         - python3.12
       Content:
         S3Bucket: !ImportValue da-ArtifactsBucketlibName
@@ -106,14 +111,15 @@ Resources:
       Description: Request Layer for Python 3.12
       LayerName: !Sub request-py3-12-${Stage}
 
-
-
-
-
 Outputs: 
+  etaSplambda:
+    Description: etaSplambda Arn
+    Value: !GetAtt etaSplambda.Arn
+    Export:
+      Name: DA-etaSplambdaArn
+
   etaMplambda:
     Description: etaMplambda Arn
     Value: !GetAtt etaMplambda.Arn
     Export:
       Name: DA-etaMplambdaArn
-
