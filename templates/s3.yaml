@@ -39,8 +39,6 @@ Resources:
     Properties:
       BucketName: !Join ['-', ["stage", !Ref pTeamName, !Ref pAWSAccountId, !Ref pAWSAccountId]]
       AccessControl: Private
-      NotificationConfiguration:
-        EventBridgeEnabled: true # Habilita los eventos del bucket hacia EventBridge
 
   DataSyncRole:
     Type: AWS::IAM::Role
