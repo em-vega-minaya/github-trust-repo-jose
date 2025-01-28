@@ -201,7 +201,7 @@ jobs:
                 pAWSAccountOptId=$AWS_ACCOUNT_ID_PRUEBA \
                 pdbStageName=$DB_STAGE \
                 pAccountName=$AWS_ACCOUNT \
-                pdeploymentDate=$TIMESTAMP 
+                pdeploymentDate=$TIMESTAMP
           aws cloudformation describe-stack-events --stack-name $STACK_NAME --max-items 5 --output table
       
       - name: Deploy Events Bridge
@@ -227,7 +227,7 @@ jobs:
                 pAWSAccountOptId=$AWS_ACCOUNT_ID_PRUEBA \
                 pdbStageName=$DB_STAGE \
                 pAccountName=$AWS_ACCOUNT \
-                pdeploymentDate=$TIMESTAMP 
+                pdeploymentDate=$TIMESTAMP
           aws cloudformation describe-stack-events --stack-name $STACK_NAME --max-items 5 --output table
       
       - name: Deploy Events
@@ -253,7 +253,7 @@ jobs:
                 pAWSAccountOptId=$AWS_ACCOUNT_ID_PRUEBA \
                 pdbStageName=$DB_STAGE \
                 pAccountName=$AWS_ACCOUNT \
-                pdeploymentDate=$TIMESTAMP 
+                pdeploymentDate=$TIMESTAMP
           aws cloudformation describe-stack-events --stack-name $STACK_NAME --max-items 5 --output table
 
 
@@ -279,7 +279,7 @@ jobs:
                 pAWSAccountOptId=$AWS_ACCOUNT_ID_PRUEBA \
                 pdbStageName=$DB_STAGE \
                 pAccountName=$AWS_ACCOUNT \
-                pdeploymentDate=$TIMESTAMP 
+                pdeploymentDate=$TIMESTAMP
           aws cloudformation describe-stack-events --stack-name $STACK_NAME --max-items 5
     
       - name: Deploy SQS
