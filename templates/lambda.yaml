@@ -31,6 +31,65 @@ Parameters:
     Type: String
 
 Resources:
+  
+  LambdaMioptimizadorRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "role-${pTeamName}-${pAccountName}-${Stage}-stage-file"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
+        - "arn:aws:iam::aws:policy/AmazonSNSFullAccess"
+        - "arn:aws:iam::aws:policy/AmazonAthenaFullAccess"
+        - "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
+        - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+        - "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+      MaxSessionDuration: 43200
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "glue.amazonaws.com"
+                - "lambda.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Path: "/"
+      Policies:
+        - PolicyName: !Sub "${pTeamName}-${pAWSAccountId}-access-to-s3-policy-stage-file"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Sid: AccessToS3Policy
+                Effect: Allow
+                Action: s3:*
+                Resource:
+                  - !Sub "arn:aws:s3:::stage-file-{pTeamName}-{pAWSAccountId}-{pAWSAccountId}/*"
+              - Sid: ReadSecretsManager
+                Effect: Allow
+                Action:
+                  - "secretsmanager:GetSecretValue"
+                  - "secretsmanager:DescribeSecret"
+                  - "secretsmanager:ListSecrets"
+                Resource:
+                  - !Sub "arn:aws:secretsmanager:${pAWSRegion}:${pAWSAccountId}:secret:*"
+              - Sid: AccessTosqsPolicy
+                Effect: Allow
+                Action:
+                  - "sqs:ReceiveMessage"
+                  - "sqs:DeleteMessage"
+                  - "sqs:GetQueueAttributes"
+                  - "sqs:GetQueueUrl"
+                Resource: 
+                  - "*"
+              - Sid: AccessTosqsPolicyghg
+                Effect: Allow
+                Action:
+                  - "logs:CreateLogGroup"
+                  - "logs:CreateLogStream"
+                  - "logs:PutLogEvents"
+                Resource: "arn:aws:logs:*:*:*"
+
   etaSplambda:
     Type: AWS::Lambda::Function
     Properties:
