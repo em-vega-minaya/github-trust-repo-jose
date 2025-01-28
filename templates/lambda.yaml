@@ -31,61 +31,23 @@ Parameters:
     Type: String
 
 Resources:
-  myLambdaFunction:
+  etaSplambda:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: !Sub "function-${Stage}"
-      Description: "Lambda function desplegada dinámicamente"
+      FunctionName: !Sub "lambda-{pTeamName}-eta-sp"
+      Description: "Lambda function desplegada dinámicamente con 'Hola Mundo'"
       MemorySize: 256
       Timeout: 30
       Code:
-        S3Bucket: !ImportValue da-ArtifactsBucketlibName
-        S3Key:  lambda/stage_misupply/src/lambda_function.zip
+        ZipFile: |
+          def lambda_handler(event, context):
+              print("Hola Mundo")
+              return {
+                  'statusCode': 200,
+                  'body': 'Hola Mundo'
+              }
       Role: !ImportValue LambdaMisupplyRole-Arn
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.9
-      Environment:
-        Variables:
-          ENVIRONMENT: !Ref Stage
-          REGION: !Ref pAWSRegion
-      Layers:
-        - !Ref dataWranglerLayer
-        - !Ref requestLayer
-
-  myLambdaFunctiontuca:
-    Type: AWS::Lambda::Function
-    Properties:
-      FunctionName: !Sub "function-${Stage}-prueba"
-      Description: "Lambda function desplegada dinámicamente"
-      MemorySize: 256
-      Timeout: 30
-      Code:
-        S3Bucket: !ImportValue da-ArtifactsBucketlibName
-        S3Key:  lambda/stage_optimizador/src/lambda_function.zip
-      Role: !ImportValue LambdaMioptimizadorRole-Arn
-      Handler: lambda_function.lambda_handler
-      Runtime: python3.9
-      Environment:
-        Variables:
-          ENVIRONMENT: !Ref Stage
-          REGION: !Ref pAWSRegion
-      Layers:
-        - !Ref dataWranglerLayer
-        - !Ref requestLayer
-
-
-  myLambdaFunction:
-    Type: AWS::Lambda::Function
-    Properties:
-      FunctionName: !Sub "function-${Stage}"
-      Description: "Lambda function desplegada dinámicamente"
-      MemorySize: 256
-      Timeout: 30
-      Code:
-        S3Bucket: !ImportValue da-ArtifactsBucketlibName
-        S3Key: lambda/stage_misupply/src/lambda_function.zip
-      Role: !ImportValue LambdaMisupplyRole-Arn
-      Handler: lambda_function.lambda_handler
+      Handler: index.lambda_handler
       Runtime: python3.9
       Environment:
         Variables:
@@ -95,6 +57,33 @@ Resources:
         - !Ref dataWranglerLayer
         - !Ref requestLayer
   
+  etaMplambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub "lambda-{pTeamName}-eta-ml"
+      Description: "Lambda function desplegada dinámicamente con 'Hola Mundo'"
+      MemorySize: 256
+      Timeout: 30
+      Code:
+        ZipFile: |
+          def lambda_handler(event, context):
+              print("Hola Mundo")
+              return {
+                  'statusCode': 200,
+                  'body': 'Hola Mundo'
+              }
+      Role: !ImportValue LambdaMisupplyRole-Arn
+      Handler: index.lambda_handler
+      Runtime: python3.9
+      Environment:
+        Variables:
+          ENVIRONMENT: !Ref Stage
+          REGION: !Ref pAWSRegion
+      Layers:
+        - !Ref dataWranglerLayer
+        - !Ref requestLayer
+
+
   dataWranglerLayer:
     Type: AWS::Lambda::LayerVersion
     Properties:
@@ -122,9 +111,9 @@ Resources:
 
 
 Outputs: 
-  myLambdaFunction:
-    Description: myLambdaFunction Arn
-    Value: !GetAtt myLambdaFunction.Arn
+  etaMplambda:
+    Description: etaMplambda Arn
+    Value: !GetAtt etaMplambda.Arn
     Export:
-      Name: DA-myLambdaFunctionArn
+      Name: DA-etaMplambdaArn
 

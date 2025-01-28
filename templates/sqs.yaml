@@ -31,20 +31,20 @@ Parameters:
     Type: String
     
 Resources:
-  myQueueLambda:
+  lambdaMlEta:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: MyQueue.fifo
+      QueueName: !sub "{pTeamName}-eta-ml"
       FifoQueue: true
       ContentBasedDeduplication: true
       VisibilityTimeout: 30
       MessageRetentionPeriod: 345600 
       
+  SQSLambdaMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      BatchSize: 10  # Número máximo de mensajes que Lambda procesará por invocación
+      EventSourceArn: !ImportValue DA-myQueueLambda
+      FunctionName: !ImportValue DA-etaMplambdaArn
+      Enabled: true
 
-
-Outputs: 
-  myQueueLambda:
-    Description: myQueueLambda Arn
-    Value: !GetAtt myQueueLambda.Arn
-    Export:
-      Name: DA-myQueueLambda

@@ -31,6 +31,29 @@ Parameters:
     Type: String
 
 Resources:
+  EventBridgeRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: !Sub "rule-${pTeamName}-eta-ml"
+      Description: "Regla para capturar eventos de S3 con un prefijo específico y activar Lambda"
+      EventPattern:
+        source:
+          - "aws.s3"
+        detail-type:
+          - "Object Created"
+        detail:
+          bucket:
+            arn: !Sub "arn:aws:s3:::stage-files-${pTeamName}-${pAWSAccountId}-${pAWSAccountId}"
+          object:
+            key:
+              prefix: "input/regional/eta/simpliytaroute" # Cambia este valor al prefijo que desees filtrar
+      Targets:
+        - Arn: !Sub "arn:aws:lambda:${pAWSRegion}:${pAWSAccountId}:function/lambda-${pTeamName}-eta-ml"
+          Id: "TargetLambda"
+
+
+  
+  
   MyEventRule:
       Type: AWS::Events::Rule
       Properties:

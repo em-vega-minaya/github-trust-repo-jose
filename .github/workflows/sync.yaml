@@ -140,31 +140,6 @@ jobs:
           done
 
           echo "All 'src' files copied and lambda_function.py zipped and uploaded to S3."
-      - name: Deploy SQS
-        id: SQS
-        shell: bash
-        if: contains(github.event.head_commit.message, '-sqs') || contains(github.event.head_commit.message, '-all')
-        env:
-          STACK_NAME: da-josemaria-sqs
-        run: |
-          aws cloudformation deploy --template-file templates/sqs.yaml \
-            --region $REGION \
-            --stack-name $STACK_NAME \
-            --capabilities CAPABILITY_NAMED_IAM \
-            --no-fail-on-empty-changeset \
-            --s3-bucket prueba-exampe-josemaria-git \
-            --parameter-overrides \
-                pTeamName=$TEAM \
-                Stage=$ENVIRONMENT \
-                pBranchName=$BRANCH_NAME \
-                pArtifactsBucket=$ARTIFACTORY_BUCKET \
-                pAWSRegion=$REGION \
-                pAWSAccountId=$AWS_ACCOUNT_ID \
-                pAWSAccountOptId=$AWS_ACCOUNT_ID_PRUEBA \
-                pdbStageName=$DB_STAGE \
-                pAccountName=$AWS_ACCOUNT \
-                pdeploymentDate=$TIMESTAMP
-          aws cloudformation describe-stack-events --stack-name $STACK_NAME --max-items 5 --output table
 
       - name: Deploy IAM
         id: iam
@@ -307,4 +282,28 @@ jobs:
                 pdeploymentDate=$TIMESTAMP 
           aws cloudformation describe-stack-events --stack-name $STACK_NAME --max-items 5
     
-  
+      - name: Deploy SQS
+        id: SQS
+        shell: bash
+        if: contains(github.event.head_commit.message, '-sqs') || contains(github.event.head_commit.message, '-all')
+        env:
+          STACK_NAME: da-josemaria-sqs
+        run: |
+          aws cloudformation deploy --template-file templates/sqs.yaml \
+            --region $REGION \
+            --stack-name $STACK_NAME \
+            --capabilities CAPABILITY_NAMED_IAM \
+            --no-fail-on-empty-changeset \
+            --s3-bucket prueba-exampe-josemaria-git \
+            --parameter-overrides \
+                pTeamName=$TEAM \
+                Stage=$ENVIRONMENT \
+                pBranchName=$BRANCH_NAME \
+                pArtifactsBucket=$ARTIFACTORY_BUCKET \
+                pAWSRegion=$REGION \
+                pAWSAccountId=$AWS_ACCOUNT_ID \
+                pAWSAccountOptId=$AWS_ACCOUNT_ID_PRUEBA \
+                pdbStageName=$DB_STAGE \
+                pAccountName=$AWS_ACCOUNT \
+                pdeploymentDate=$TIMESTAMP
+          aws cloudformation describe-stack-events --stack-name $STACK_NAME --max-items 5 --output table
