@@ -15,7 +15,7 @@ jobs:
     env:
       AWS_BUCKET_NAME: "prueba-exampe-josemaria-git"
       REGION: "us-east-1"
-      ARTIFACTS_S3: "test-artifacts-dev-josemaria"
+      ARTIFACTS_S3: "bk-prueba-dev-josemaria"
       AWS_ACCOUNT_ID: "345345345345"
       AWS_ACCOUNT_OPTIMIZADOR: "5345345345"  
       ENVIRONMENT: "dev" 
@@ -190,7 +190,7 @@ jobs:
             --stack-name $STACK_NAME \
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset \
-            --s3-bucket test-artifacts-dev-josemaria \
+            --s3-bucket bk-prueba-dev-josemaria \
             --parameter-overrides \
                 pTeamName=$TEAM \
                 Stage=$ENVIRONMENT \
@@ -216,7 +216,7 @@ jobs:
             --stack-name $STACK_NAME \
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset \
-            --s3-bucket test-artifacts-dev-josemaria \
+            --s3-bucket bk-prueba-dev-josemaria \
             --parameter-overrides \
                 pTeamName=$TEAM \
                 Stage=$ENVIRONMENT \
@@ -242,7 +242,7 @@ jobs:
             --stack-name $STACK_NAME \
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset \
-            --s3-bucket test-artifacts-dev-josemaria \
+            --s3-bucket bk-prueba-dev-josemaria \
             --parameter-overrides \
                 pTeamName=$TEAM \
                 Stage=$ENVIRONMENT \
@@ -294,7 +294,7 @@ jobs:
             --stack-name $STACK_NAME \
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset \
-            --s3-bucket test-artifacts-dev-josemaria \
+            --s3-bucket bk-prueba-dev-josemaria \
             --parameter-overrides \
                 pTeamName=$TEAM \
                 Stage=$ENVIRONMENT \
