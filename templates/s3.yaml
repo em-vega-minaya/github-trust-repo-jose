@@ -35,13 +35,13 @@ Resources:
 
 
   stageFile3Bucket:
-  Type: "AWS::S3::Bucket"
-  DeletionPolicy: Delete
-  Properties:
-    BucketName: !Join ['-', ["stage-files", !Ref pTeamName, !Ref pAWSAccountId, !Ref pAWSAccountId]] # Cambia el nombre si es necesario
-    AccessControl: Private
-    NotificationConfiguration:
-      EventBridgeConfiguration: {}
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Delete
+    Properties:
+      BucketName: !Join ['-', ["stage-files", !Ref pTeamName, !Ref pAWSAccountId, !Ref pAWSAccountId]] # Cambia el nombre si es necesario
+      AccessControl: Private
+      NotificationConfiguration:
+        EventBridgeConfiguration: {}
 
   DataSyncRole:
     Type: AWS::IAM::Role
