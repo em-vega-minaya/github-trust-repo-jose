@@ -39,7 +39,14 @@ Resources:
     Properties:
       BucketName: !Join ['-', ["stage-file", !Ref pTeamName, !Ref pAWSAccountId, !Ref pAWSAccountId]]
       AccessControl: Private
-
+  
+  ArtifactsBucketlibName:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Delete
+    Properties:
+      BucketName: !Ref pArtifactsBucket
+      AccessControl: Private
+ 
   DataSyncRole:
     Type: AWS::IAM::Role
     Properties:
@@ -73,3 +80,11 @@ Resources:
                   - "s3:GetObject"
                   - "s3:PutObject"
                 Resource: !Sub "arn:aws:s3:::stage-${pTeamName}-${pAWSAccountId}-${pAccountName}/*"
+
+
+Outputs: 
+  ArtifactsBucketlibName:
+    Description: ArtifactsBucketlibName Arn
+    Value: !GetAtt ArtifactsBucketlibName.Arn
+    Export:
+      Name: DA-ArtifactsBucketlibName
