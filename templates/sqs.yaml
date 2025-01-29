@@ -31,7 +31,7 @@ Parameters:
     Type: String
     
 Resources:
-  lambdaMlEta:
+  lambdaMlEtasqs:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: !Sub "{pTeamName}-eta-ml"
@@ -44,7 +44,7 @@ Resources:
     Type: AWS::Lambda::EventSourceMapping
     Properties:
       BatchSize: 10  # Número máximo de mensajes que Lambda procesará por invocación
-      EventSourceArn: !ImportValue DA-myQueueLambda
+      EventSourceArn: !GetAtt lambdaMlEtasqs
       FunctionName: !ImportValue DA-etaMplambdaArn
       Enabled: true
 

@@ -40,7 +40,8 @@ Resources:
       BucketName: !Join ['-', ["stage-file", !Ref pTeamName, !Ref pAWSAccountId, !Ref pAWSAccountId]]
       AccessControl: Private
       NotificationConfiguration:
-        EventBridgeConfiguration: {}
+        EventBridgeConfiguration:
+          EventBridgeEnabled: true
   
   ArtifactsBucketlibName:
     Type: "AWS::S3::Bucket"
