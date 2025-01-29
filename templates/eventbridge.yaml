@@ -45,7 +45,7 @@ Resources:
         - Id: Id31889617-1882-40bd-b54d-f2b74669ff6a
           Arn:
             Fn::Sub: >-
-              arn:${AWS::Partition}:lambda:${pAWSRegion}:${pAWSAccountId}:function:lambda-${pTeamName}-eta-sp
+              arn:aws:lambda:us-east-1:160885287080:function:lambda-da-eta-sp
   
   
 #   MyEventRule:
