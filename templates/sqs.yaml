@@ -34,7 +34,7 @@ Resources:
   lambdaMlEta:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: !sub "{pTeamName}-eta-ml"
+      QueueName: !Sub "{pTeamName}-eta-ml"
       FifoQueue: true
       ContentBasedDeduplication: true
       VisibilityTimeout: 30
