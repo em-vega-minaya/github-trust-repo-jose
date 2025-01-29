@@ -30,7 +30,6 @@ Parameters:
     Description: "Fecha de despliegue (en minúsculas, sin símbolos ni espacios)"
     Type: String
 
-  EventBridgeRule:
 Resources:
   EventBridgeRule:
     Type: AWS::Events::Rule
