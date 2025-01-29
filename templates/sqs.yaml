@@ -44,7 +44,7 @@ Resources:
     Type: AWS::Lambda::EventSourceMapping
     Properties:
       BatchSize: 10  # Número máximo de mensajes que Lambda procesará por invocación
-      EventSourceArn: !GetAtt lambdaMlEtasqs
+      EventSourceArn: !GetAtt lambdaMlEtasqs.Arn
       FunctionName: !ImportValue DA-etaMplambdaArn
       Enabled: true
 
