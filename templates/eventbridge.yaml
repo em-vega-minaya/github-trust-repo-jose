@@ -34,7 +34,7 @@ Resources:
   EventBridgeRule:
     Type: AWS::Events::Rule
     Properties:
-      Name: s3-to-lambda
+      Name: s3-to-lambdards
       EventPattern: >-
         {"source":["aws.s3"],"detail-type":["Object
         Created"],"detail":{"bucket":{"name":["stage-file-da-160885287080-160885287080"]},"object":{"key":[{"prefix":"input/regional/eta/simplyroute/"}]}}}
