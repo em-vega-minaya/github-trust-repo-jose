@@ -3,31 +3,31 @@ AWSTemplateFormatVersion: 2010-09-09
 Parameters:
   Stage:
     Type: String
-    Description: Environment name (dev/qa/prod)
+    Description: Nombre del entorno (dev/qa/prod)
     Default: dev
   pBranchName:
-    Description: "Branch Name(all lowercase, no symbols or spaces)"
+    Description: "Nombre de la rama (en minúsculas, sin símbolos ni espacios)"
     Type: String
   pArtifactsBucket:
-    Description: "Artifact Bucket (all lowercase, no symbols or spaces)"
+    Description: "Bucket de artefactos (en minúsculas, sin símbolos ni espacios)"
     Type: String
   pAWSRegion:
-    Description: "Aws region (all lowercase, no symbols or spaces)"
+    Description: "Región de AWS (en minúsculas, sin símbolos ni espacios)"
     Type: String
   pAWSAccountId:
-    Description: "Aws account (all lowercase, no symbols or spaces)"
+    Description: "ID de la cuenta de AWS (en minúsculas, sin símbolos ni espacios)"
     Type: String
   pAWSAccountOptId:
-    Description: "Aws account optimizador Id(all lowercase, no symbols or spaces)"
+    Description: "ID de la cuenta optimizadora de AWS (en minúsculas, sin símbolos ni espacios)"
     Type: String
   pAccountName:
-    Description: "Aws account (all lowercase, no symbols or spaces)"
+    Description: "Nombre de la cuenta de AWS (en minúsculas, sin símbolos ni espacios)"
     Type: String
   pTeamName:
-    Description: "Aws account (all lowercase, no symbols or spaces)"
+    Description: "Nombre del equipo de AWS (en minúsculas, sin símbolos ni espacios)"
     Type: String
   pdeploymentDate:
-    Description: "Aws account (all lowercase, no symbols or spaces)"
+    Description: "Fecha de despliegue (en minúsculas, sin símbolos ni espacios)"
     Type: String
 
 Resources:
@@ -44,10 +44,10 @@ Resources:
         detail:
           bucket:
             name:
-              - !Sub "stage-files-${pTeamName}-${pAWSAccountId}-${pAWSAccountId}" # Changed to an array
+              - !Sub "stage-files-${pTeamName}-${pAWSAccountId}-${pAWSAccountId}" # Cambiado a un arreglo
           object:
             key:
-              prefix: "input/regional/eta/simplyroute" # Adjusted prefix
+              prefix: "input/regional/eta/simplyroute" # Prefijo ajustado
       Targets:
         - Arn: !Sub "arn:aws:lambda:${pAWSRegion}:${pAWSAccountId}:function/lambda-${pTeamName}-eta-ml"
           Id: "TargetLambda"
