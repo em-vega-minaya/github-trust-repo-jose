@@ -34,16 +34,16 @@ Resources:
   lambdaMlEtasqs:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: !Sub "{pTeamName}-eta-ml.fifo"
+      QueueName: !Sub "${TeamName}-${Stage}-ml.fifo"
       FifoQueue: true
       ContentBasedDeduplication: true
       VisibilityTimeout: 30
-      MessageRetentionPeriod: 345600 
-      
+      MessageRetentionPeriod: 345600
+
   SQSLambdaMapping:
     Type: AWS::Lambda::EventSourceMapping
     Properties:
-      BatchSize: 10  # Número máximo de mensajes que Lambda procesará por invocación
+      BatchSize: 10
       EventSourceArn: !GetAtt lambdaMlEtasqs.Arn
       FunctionName: !ImportValue DA-etaMplambdaArn
       Enabled: true
