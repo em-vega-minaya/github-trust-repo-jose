@@ -30,27 +30,22 @@ Parameters:
     Description: "Fecha de despliegue (en minúsculas, sin símbolos ni espacios)"
     Type: String
 
+  EventBridgeRule:
 Resources:
   EventBridgeRule:
     Type: AWS::Events::Rule
     Properties:
-      Name: !Sub "rule-${pTeamName}-eta-ml"
-      Description: "Regla para capturar eventos de S3 con un prefijo específico y activar Lambda"
-      EventPattern:
-        source:
-          - "aws.s3"
-        detail-type:
-          - "Object Created"
-        detail:
-          bucket:
-            name:
-              - !Sub "stage-files-${pTeamName}-${pAWSAccountId}-${pAWSAccountId}" # Cambiado a un arreglo
-          object:
-            key:
-              prefix: "input/regional/eta/simplyroute" # Prefijo ajustado
+      Name: s3-to-lambda
+      EventPattern: >-
+        {"source":["aws.s3"],"detail-type":["Object
+        Created"],"detail":{"bucket":{"name":["stage-file-da-160885287080-160885287080"]},"object":{"key":[{"prefix":"input/regional/eta/simplyroute/"}]}}}
+      State: ENABLED
+      EventBusName: default
       Targets:
-        - Arn: !Sub "arn:aws:lambda:${pAWSRegion}:${pAWSAccountId}:function/lambda-${pTeamName}-eta-ml"
-          Id: "TargetLambda"
+        - Id: Id31889617-1882-40bd-b54d-f2b74669ff6a
+          Arn:
+            Fn::Sub: >-
+              arn:${AWS::Partition}:lambda:${pAWSRegion}:${pAWSAccountId}:function:lambda-${pTeamName}-eta-sp
   
   
 #   MyEventRule:
