@@ -80,6 +80,7 @@ Resources:
                   - "sqs:DeleteMessage"
                   - "sqs:GetQueueAttributes"
                   - "sqs:GetQueueUrl"
+                  - "sqs:sendmessage"
                 Resource: 
                   - "*"
               - Sid: AccessTosqsPolicyghg
