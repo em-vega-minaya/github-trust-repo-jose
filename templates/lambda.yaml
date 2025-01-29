@@ -105,7 +105,7 @@ Resources:
                   'statusCode': 200,
                   'body': 'Hola Mundo'
               }
-      Role: !Ref LambdaMioptimizadorRole
+      Role: !GetAtt LambdaMioptimizadorRole.Arn
       Handler: index.lambda_handler
       Runtime: python3.9
       Environment:
@@ -133,7 +133,7 @@ Resources:
                   'statusCode': 200,
                   'body': 'Hola Mundo'
               }
-      Role: !Ref LambdaMioptimizadorRole
+      Role: !GetAtt LambdaMioptimizadorRole.Arn
       Handler: index.lambda_handler
       Runtime: python3.9
       Environment:

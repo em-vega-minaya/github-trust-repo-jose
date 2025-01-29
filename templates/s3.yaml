@@ -87,4 +87,4 @@ Outputs:
     Description: ArtifactsBucketlibName Arn
     Value: !GetAtt ArtifactsBucketlibName.Arn
     Export:
-      Name: DA-ArtifactsBucketlibName
+      Name: da-ArtifactsBucketlibName
