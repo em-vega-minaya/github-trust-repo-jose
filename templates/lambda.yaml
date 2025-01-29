@@ -93,7 +93,7 @@ Resources:
   etaSplambda:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: !Sub "lambda-{pTeamName}-eta-sp"
+      FunctionName: !Sub "lambda-${pTeamName}-eta-sp"
       Description: "Lambda function desplegada dinámicamente con 'Hola Mundo'"
       MemorySize: 256
       Timeout: 30
@@ -121,7 +121,7 @@ Resources:
   etaMplambda:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: !Sub "lambda-{pTeamName}-eta-ml"
+      FunctionName: !Sub "lambda-${pTeamName}-eta-ml"
       Description: "Lambda function desplegada dinámicamente con 'Hola Mundo'"
       MemorySize: 256
       Timeout: 30
