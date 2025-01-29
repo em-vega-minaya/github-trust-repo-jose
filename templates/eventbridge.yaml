@@ -43,15 +43,14 @@ Resources:
           - "Object Created"
         detail:
           bucket:
-            name: !Sub "stage-files-${pTeamName}-${pAWSAccountId}-${pAWSAccountId}" # Cambiado a string literal
+            name:
+              - !Sub "stage-files-${pTeamName}-${pAWSAccountId}-${pAWSAccountId}" # Changed to an array
           object:
             key:
-              prefix: "input/regional/eta/simplyroute" # Ajustado prefijo
+              prefix: "input/regional/eta/simplyroute" # Adjusted prefix
       Targets:
         - Arn: !Sub "arn:aws:lambda:${pAWSRegion}:${pAWSAccountId}:function/lambda-${pTeamName}-eta-ml"
           Id: "TargetLambda"
-
-
   
   
 #   MyEventRule:
