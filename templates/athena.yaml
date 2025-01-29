@@ -36,7 +36,7 @@ Resources:
     Type: "AWS::S3::Bucket"
     DeletionPolicy: Delete
     Properties:
-      BucketName: !Join ['-', ["stage", !Ref pTeamName, !Ref pAWSAccountId, !Ref pAWSAccountId]] # Cambia el nombre si es necesario
+      BucketName: !Join ['-', ["stage", !Ref pTeamName, !Ref pAWSAccountId, !Ref pAWSAccountId]] 
       AccessControl: Private
   
   S3BucketPolicy:
