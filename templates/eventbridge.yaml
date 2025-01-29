@@ -43,10 +43,10 @@ Resources:
           - "Object Created"
         detail:
           bucket:
-            arn: !Sub "arn:aws:s3:::stage-files-${pTeamName}-${pAWSAccountId}-${pAWSAccountId}"
+            name: stage-file-da-160885287080-160885287080
           object:
             key:
-              prefix: "input/regional/eta/simpliytaroute" # Cambia este valor al prefijo que desees filtrar
+              prefix: "input/regional/eta/simplyroute" # Mantén el prefijo necesario
       Targets:
         - Arn: !Sub "arn:aws:lambda:${pAWSRegion}:${pAWSAccountId}:function/lambda-${pTeamName}-eta-ml"
           Id: "TargetLambda"
