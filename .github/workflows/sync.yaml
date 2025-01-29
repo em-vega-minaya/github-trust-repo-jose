@@ -167,10 +167,10 @@ jobs:
           aws cloudformation describe-stack-events --stack-name $STACK_NAME --max-items 5
 
       - name: Upload layers to S3
-        if: contains(github.event.head_commit.message, '-lambda') || contains(github.event.head_commit.message, '-all')
+        if: contains(github.event.head_commit.message, '-layer') || contains(github.event.head_commit.message, '-all')
         run: |
-          aws s3 cp ./layers/awswrangler-layer-py3-9.zip s3://$ARTIFACTS_S3/layers/
-          aws s3 cp ./layers/request-layer-py3-12.zip s3://$ARTIFACTS_S3/layers/
+          aws s3 cp ./layers/awswrangler-layer-py3-9.zip s3://$ARTIFACTORY_BUCKET/layers/
+          aws s3 cp ./layers/request-layer-py3-12.zip s3://$ARTIFACTORY_BUCKET/layers/
 
           awswrangler_layer_py3_9_md5=$(md5sum ./layers/awswrangler-layer-py3-9.zip | awk '{print $1}')
           request_layer_py3_12_md5=$(md5sum ./layers/request-layer-py3-12.zip | awk '{print $1}')
