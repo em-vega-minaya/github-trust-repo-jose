@@ -34,7 +34,7 @@ Resources:
   lambdaMlEtasqs:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: !Sub "${TeamName}-${Stage}-ml.fifo"
+      QueueName: !Sub "${pTeamName}-${Stage}-ml.fifo"
       FifoQueue: true
       ContentBasedDeduplication: true
       VisibilityTimeout: 30
