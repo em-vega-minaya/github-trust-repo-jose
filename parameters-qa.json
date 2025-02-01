@@ -3,28 +3,28 @@
         "TEAM": "da"
     },
     {
-        "ENVIRONMENT": "dev"
+        "ENVIRONMENT": "qa"
     },
     {
-        "BRANCH_NAME": "develop"
+        "BRANCH_NAME": "qa"
     },
     {
         "REPOSITORY_NAME":"github-trust-repo"
     },    
     {
-        "ARTIFACTORY_BUCKET":"test-artifacts-dev-josemaria"
+        "ARTIFACTORY_BUCKET":"dev-artifacts-dev-josemaria"
     },
     {
-        "AWS_ACCOUNT_ID":"039612881651"
+        "AWS_ACCOUNT_ID":"160885287080"
     },
     {
-        "AWS_ACCOUNT_ID_CASA":"160885287080"
+        "AWS_ACCOUNT_ID_PRUEBA":"039612881651"
     },
     {
         "DB_STAGE":"db_analitycs_prueba"
     },
     {
-        "PROYECTO":"ecodistribucion"
+        "AWS_ACCOUNT":"josemaria_account"
     }
   ]
   
