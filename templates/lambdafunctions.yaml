@@ -16,7 +16,7 @@ Parameters:
   pAWSAccountId:
     Description: "Aws account (all lowercase, no symbols or spaces)"
     Type: String
-  pAWSAccountOpt:
+  pAWSAccountOptId:
     Description: "Aws account optimizador Id(all lowercase, no symbols or spaces)"
     Type: String
   pAccountName:
