@@ -55,6 +55,10 @@ Resources:
                 - "lambda.amazonaws.com"
             Action:
               - "sts:AssumeRole"
+          - Effect: "Allow"  # Nueva política de confianza para la cuenta externa
+            Principal:
+              AWS: "arn:aws:iam::039612881651:root"  # Reemplaza con el ID de la cuenta que quieres permitir
+            Action: "sts:AssumeRole"
       Path: "/"
       Policies:
         - PolicyName: !Sub "${pTeamName}-${pAccountName}-access-to-s3-policy"
